@@ -196,7 +196,7 @@ TEST_P(SniVerifierFilterTest, BothSnisEmpty) {
 
 TEST_P(SniVerifierFilterTest, SniTooLarge) {
   runTestForClientHello(std::get<0>(GetParam()), std::get<1>(GetParam()),
-                        "example.com", std::string(TOO_LARGE_SERVER_NAME_SIZE, 'a'),
+                        "example.com", std::string(TLS_MAX_CLIENT_HELLO, 'a'),
                         Network::FilterStatus::StopIteration);
   EXPECT_EQ(1, cfg_->stats().client_hello_too_large_.value());
   EXPECT_EQ(0, cfg_->stats().tls_found_.value());
