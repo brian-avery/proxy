@@ -76,6 +76,13 @@ build_envoy_tsan:
 build_envoy_asan:
 	export PATH=$(PATH) CC=$(CC) CXX=$(CXX) && bazel $(BAZEL_STARTUP_ARGS) build $(BAZEL_BUILD_ARGS) $(BAZEL_CONFIG_ASAN) //src/envoy:envoy
 
+.PHONY: build_wasm_bavery
+build_wasm_bavery: wasm_include
+	#export PATH=$(PATH) CC=$(CC) CXX=$(CXX) && bazel $(BAZEL_STARTUP_ARGS) build --config=wasm32 //extensions/stackdriver:stackdriver_plugin --verbose_failures
+	#export PATH=$(PATH) CC=$(CC) CXX=$(CXX) && bazel $(BAZEL_STARTUP_ARGS) build --config=wasm32 //extensions/attributegen:attributegen_plugin --verbose_failures
+	export PATH=$(PATH) CC=$(CC) CXX=$(CXX) && bazel $(BAZEL_STARTUP_ARGS) build --config=wasm32 //extensions/stats:stats_plugin --verbose_failures
+
+
 # Implicitly depends on build, but does not require a specific configuration
 .PHONY: wasm_include
 wasm_include:

@@ -52,4 +52,9 @@ build --cxxopt -Wno-error=unused-variable
 build --cxxopt -w
 build --cxxopt -ldl
 
-import %workspace%/maistra/bazelrc
+
+# Toolchain for compiling C++ code to WASM
+build:wasm32 --crosstool_top=//toolchain:clang_llvm
+build:wasm32 --host_crosstool_top=@bazel_tools//tools/cpp:toolchain
+#build:wasm32 -D CMAKE_INSTALL_PREFIX=/usr/local
+build:wasm32 --cpu=wasm32
